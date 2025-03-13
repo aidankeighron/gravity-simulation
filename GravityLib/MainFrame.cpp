@@ -28,7 +28,6 @@ void MainFrame::Initialize()
     auto planetMenu = new wxMenu();
 
     fileMenu->Append(wxID_EXIT, "E&xit\tAlt-X", "Quit this program");
-
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
 
     planetMenu->Append(IDM_ADDPLANET, L"&New Planet", L"Add a New Planet");
@@ -40,10 +39,6 @@ void MainFrame::Initialize()
     CreateStatusBar(1, wxSTB_SIZEGRIP, wxID_ANY);
 }
 
-/**
- * Exit menu option handlers
- * @param event
- */
 void MainFrame::OnExit(wxCommandEvent& event)
 {
     Close(true);

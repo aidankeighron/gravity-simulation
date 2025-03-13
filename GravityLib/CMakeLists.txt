@@ -1,6 +1,8 @@
 project(GravityLib)
 
-set(SOURCE_FILES pch.h MainFrame.cpp MainFrame.h GravityView.cpp GravityView.h Gravity.cpp Gravity.h)
+set(SOURCE_FILES pch.h MainFrame.cpp MainFrame.h GravityView.cpp GravityView.h Gravity.cpp Gravity.h
+        Planet.cpp
+        Planet.h)
 
 set(wxBUILD_PRECOMP OFF)
 find_package(wxWidgets COMPONENTS core base xrc html xml REQUIRED)

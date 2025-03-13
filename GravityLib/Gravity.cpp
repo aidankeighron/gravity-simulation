@@ -6,6 +6,8 @@
 #include "pch.h"
 #include "Gravity.h"
 
+#include "Planet.h"
+
 using namespace std;
 
 /**
@@ -21,10 +23,10 @@ Gravity::Gravity()
  */
 void Gravity::OnDraw(wxDC *dc)
 {
-    wxFont font(wxSize(0, 20), wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
-    dc->SetFont(font);
-    dc->SetTextForeground(wxColour(0, 64, 0));
-    dc->DrawText(L"Simulation", 10, 10);
+    for (auto planet : mPlanets)
+    {
+        planet->Draw(dc);
+    }
 }
 
 /**
@@ -33,4 +35,13 @@ void Gravity::OnDraw(wxDC *dc)
  */
 void Gravity::Update(double elapsed)
 {
+    for (auto planet : mPlanets)
+    {
+        planet->Update(elapsed);
+    }
+}
+
+void Gravity::AddPlanet(std::shared_ptr<Planet> planet)
+{
+    mPlanets.push_back(planet);
 }
