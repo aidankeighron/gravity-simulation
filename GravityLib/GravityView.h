@@ -18,6 +18,7 @@ private:
     void OnPaint(wxPaintEvent&);
     void TimerEvent(wxTimerEvent& event);
     void AddPlanet(wxCommandEvent& event);
+    void Clear(wxCommandEvent& event);
     void OnLeftDown(wxMouseEvent& event);
     void OnLeftUp(wxMouseEvent& event);
     void OnMouseMove(wxMouseEvent& event);
@@ -33,8 +34,8 @@ private:
     int mMouseY = 0;
 
     bool mMouseDown = false;
-    int mRadius = 20;
-    int mMass = 100.0;
+    int mRadius = 30;
+    int mMass = 100;
 
     int mVelocityVector[2][2] = {{0,0},{0,0}};
 public:

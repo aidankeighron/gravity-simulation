@@ -13,6 +13,7 @@
  */
 enum IDs {
     IDM_ADDPLANET = wxID_HIGHEST + 1,
+    IDM_CLEAR = wxID_HIGHEST + 2,
 };
 
 #endif //IDS_H

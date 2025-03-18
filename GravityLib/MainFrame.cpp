@@ -31,9 +31,10 @@ void MainFrame::Initialize()
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
 
     planetMenu->Append(IDM_ADDPLANET, L"&New Planet", L"Add a New Planet");
+    planetMenu->Append(IDM_CLEAR, L"&Clear All", L"Clears all planets");
 
     menuBar->Append(fileMenu, L"&File" );
-    menuBar->Append(planetMenu, L"&Add Planet");
+    menuBar->Append(planetMenu, L"&Planets");
 
     SetMenuBar(menuBar);
     CreateStatusBar(1, wxSTB_SIZEGRIP, wxID_ANY);

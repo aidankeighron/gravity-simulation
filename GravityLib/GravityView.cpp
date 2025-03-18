@@ -7,7 +7,7 @@
 #include "GravityView.h"
 #include "ids.h"
 #include <wx/dcbuffer.h>
-
+#include <math.h>
 #include "Planet.h"
 
 using namespace std;
@@ -33,6 +33,7 @@ void GravityView::Initialize(wxFrame* parent)
     Bind(wxEVT_MOUSEWHEEL, &GravityView::OnMouseWheel, this);
 
     parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GravityView::AddPlanet, this, IDM_ADDPLANET);
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GravityView::Clear, this, IDM_CLEAR);
 
     mTimer.SetOwner(this);
     mTimer.Start(FrameDuration);
@@ -50,9 +51,9 @@ void GravityView::OnPaint(wxPaintEvent& event)
 {
     // Compute the time that has elapsed
     auto newTime = mStopWatch.Time();
-    auto elapsed = (double)(newTime - mTime) * 0.001;
+    auto dt = (double)(newTime - mTime) * 0.001;
     mTime = newTime;
-    mGravity.Update(elapsed);
+    mGravity.Update(dt);
 
     wxAutoBufferedPaintDC dc(this);
 
@@ -95,8 +96,13 @@ void GravityView::AddPlanet(wxCommandEvent& event)
     auto planet = make_shared<Planet>(mRadius, mMass);
     double vx = mVelocityVector[1][0] - mVelocityVector[0][0];
     double vy = mVelocityVector[1][1] - mVelocityVector[0][1];
-    planet->SetLocation(mMouseX, mMouseY, vx, vy);
+    planet->SetLocation(mMouseX, mMouseY, vx/10.0, vy/10.0);
     mGravity.AddPlanet(planet);
+}
+
+void GravityView::Clear(wxCommandEvent& event)
+{
+    mGravity.Clear();
 }
 
 void GravityView::OnLeftDown(wxMouseEvent &event)

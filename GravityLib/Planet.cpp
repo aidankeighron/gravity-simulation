@@ -5,6 +5,12 @@
  
 #include "Planet.h"
 
+Planet::Planet()
+{
+    mAX = 0;
+    mAY = 0;
+}
+
 wxColour HSVtoRGB(double h, double s, double v) {
     if (s == 0.0) {
         return wxColour(v * 255, v * 255, v * 255);
@@ -31,7 +37,7 @@ wxColour HSVtoRGB(double h, double s, double v) {
     return wxColour(r * 255, g * 255, b * 255);
 }
 
-Planet::Planet(int radius, double mass)
+Planet::Planet(double radius, double mass)
 {
     mRadius = radius;
     mMass = mass;
@@ -47,23 +53,42 @@ Planet::Planet(int radius, double mass)
     mColour = HSVtoRGB(hue, 0.7, 0.7);
 }
 
-void Planet::SetLocation(int x, int y, int vx, int vy)
+void Planet::SetLocation(double x, double y, double vx, double vy)
 {
     mX = x;
     mY = y;
     mVX = vx;
     mVY = vy;
+    mAX = 0;
+    mAY = 0;
 }
 
 void Planet::Update(double dt)
 {
-    mX += mVX * dt;
-    mY += mVY * dt;
+    double Fx = 0;
+    double Fy = 0;
+    for (auto velocity : mActingForces)
+    {
+        Fx += velocity.mFX;
+        Fy += velocity.mFY;
+    }
+    mActingForces.clear();
+
+    // F = ma
+    // F/m = a
+    double ax = Fx/mMass;
+    double ay = Fy/mMass;
+
+    mAX += ax;
+    mAY += ay;
+
+    mX += mVX * dt + 0.5 * mAX * dt * dt;
+    mY += mVY * dt + 0.5 * mAY * dt * dt;
 }
 
 void Planet::Draw(wxDC *dc)
 {
     dc->SetBrush(mColour);
     dc->SetPen(*wxTRANSPARENT_PEN);
-    dc->DrawCircle(mX, mY, mRadius);
+    dc->DrawCircle((int)mX, (int)mY, (int)(mRadius));
 }

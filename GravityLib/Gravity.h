@@ -22,8 +22,9 @@ private:
 public:
     Gravity();
     void OnDraw(wxDC* dc);
-    void Update(double elapsed);
+    void Update(double dt);
     void AddPlanet(std::shared_ptr<Planet> planet);
+    void Clear();
 };
 
 
