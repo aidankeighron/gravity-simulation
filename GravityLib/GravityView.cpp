@@ -66,8 +66,8 @@ void GravityView::OnPaint(wxPaintEvent& event)
     dc.SetTextForeground(wxColour(0, 64, 0));
     int y = 10;
     dc.DrawText(L"Simulation", 10, y);
-    dc.DrawText(L"Radius: " + std::to_string(mRadius), 10, y += 30);
-    dc.DrawText(L"Weight: " + std::to_string(mMass), 10, y += 30);
+    dc.DrawText(L"Radius: " + std::to_string(mRadius) + L" (Scroll to change)", 10, y += 30);
+    dc.DrawText(L"Weight: " + std::to_string(mMass) + L" (Scroll+Shift to change)", 10, y += 30);
 
     mGravity.OnDraw(&dc);
 
@@ -148,10 +148,10 @@ void GravityView::OnMouseWheel(wxMouseEvent &event) {
 
     if (event.m_shiftDown)
     {
-        mMass += lines * 10;
+        mRadius += lines * 10;
     }
     else
     {
-        mRadius += lines * 10;
+        mMass += lines * 10;
     }
 }
